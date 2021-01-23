@@ -4,6 +4,15 @@
     font-size: 16px;
 }
 
+.productos {
+    margin-top: 50px;
+    margin-left: 115px;
+}
+
+.clash-card__image img {
+    height: 230px;
+}
+
 .bg-color {
     background-color: #fff159;
     padding: 20px 0;
@@ -18,15 +27,17 @@
 .logo {
     text-align: center;
     font-size: 2rem;
-    color: black;
-    text-decoration: none;
-}
-
-.logo:hover {
-    color: black;
 }
 
 .msg {
     text-align: center;
     font-size: 2rem;
+}
+
+.stat {
+    font-size: 20px;
+}
+
+.clash-card__unit-name {
+    font-size: 18px;
 }

@@ -1,3 +1,6 @@
 export * from "./Navbar"
 export * from "./Product"
 export * from "./Searchbar"
+export * from "./Catalogo"
+export * from "./Status404"
+export * from "./Home"

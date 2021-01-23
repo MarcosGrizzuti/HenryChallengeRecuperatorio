@@ -1,9 +1,7 @@
 import React from "react";
-/* import axios from "axios";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom"; */
+import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from "./Navbar.scss"
+import "./Navbar.scss"
 import { SearchBar } from "./Searchbar"
 
 export const NavBar = () => {
@@ -14,8 +12,8 @@ export const NavBar = () => {
                     <div className="width">
                         <div className="row">
                             <div className="col-3">
-                                <div className="logo">
-                                    Mercado Liebre
+                                <div>
+                                    <Link className="logo" to="/">Mercado Liebre</Link>
                                 </div>
                             </div>
                             <div className="col-5">

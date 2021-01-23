@@ -34,7 +34,7 @@ router.get("/api/search", (req, res, next) => {
 
   async function fetch() {
     var productosRefinados = await apiResquest(query)
-    console.log(productosRefinados)
+    res.json(productosRefinados)
   }
 
   fetch()
