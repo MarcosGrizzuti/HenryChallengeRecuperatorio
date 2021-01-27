@@ -15,6 +15,9 @@ export const Product = () => {
         }
     })
 
+    localStorage.setItem("Producto", JSON.stringify(producto))
+    console.log(localStorage.getItem("Producto"));
+
     return (
         <div className="product">
             <div className="clash-card barbarian sombra mb-5">

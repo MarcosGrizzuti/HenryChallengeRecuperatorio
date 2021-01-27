@@ -22,7 +22,7 @@ export const SearchBar = () => {
         <div className="col-5">
             <div className="searchbar">
                 <div className="nav-item w-100 m-auto">
-                    <form onSubmit={buscarProducto} action="/catalogo">
+                    <form action="/catalogo" onSubmit={buscarProducto}>
                         <input
                             type="search"
                             name="query"

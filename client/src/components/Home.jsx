@@ -6,6 +6,9 @@ import Henry from "../images/Henry.png";
 import "./Home.scss"
 
 export const Home = () => {
+
+  console.log(localStorage.getItem("Producto"));
+
   return (
     <div className="container">
       <div className="row">
