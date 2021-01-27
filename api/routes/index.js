@@ -5,7 +5,6 @@ const path = require('path');
 const axios = require('axios');
 const { query } = require('express');
 
-
 /* PATH a CACHE */
 const cacheFilePath = path.join(__dirname, '../cache/cache.json');
 const cache = JSON.parse(fs.readFileSync(cacheFilePath, 'utf-8'));

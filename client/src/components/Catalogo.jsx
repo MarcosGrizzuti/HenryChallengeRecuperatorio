@@ -7,8 +7,6 @@ import "./Catalogo.scss";
 export const Catalogo = () => {
     const catalogo = useSelector((store) => store.productos.productos);
 
-    console.log(catalogo)
-
     return (
         <div className="productos">
             <div className="container-fluid">
