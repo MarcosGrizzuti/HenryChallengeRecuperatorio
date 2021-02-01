@@ -1,11 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { obtenerProductos } from "../redux/actions/obtenerProductosAction"
 import "./Catalogo.scss";
 
 export const Catalogo = () => {
+    const dispatch = useDispatch();
     const catalogo = useSelector((store) => store.productos.productos);
+
+    useEffect(() => {
+        dispatch(obtenerProductos(localStorage.getItem("Busqueda")))
+    }, [])
 
     return (
         <div className="productos">

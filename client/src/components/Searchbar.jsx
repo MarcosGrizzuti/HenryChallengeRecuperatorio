@@ -15,6 +15,7 @@ export const SearchBar = () => {
     };
 
     function buscarProducto() {
+        localStorage.setItem("Busqueda", inputProducto)
         dispatch(obtenerProductos(inputProducto))
     }
 
