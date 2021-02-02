@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { obtenerProductos } from "../redux/actions/obtenerProductosAction"
+import { obtenerProductos, filtrarProductosOrden, filtrarProductosCondicion} from "../redux/actions/obtenerProductosAction"
 import "./Catalogo.scss";
 
 export const Catalogo = () => {
@@ -14,10 +14,37 @@ export const Catalogo = () => {
         dispatch(obtenerProductos(localStorage.getItem("Busqueda")))
     }, [])
 
+    function caroABarato() {
+        dispatch(filtrarProductosOrden(localStorage.getItem("Busqueda"), "mayor"))
+    }
+
+    function baratoACaro() {
+        dispatch(filtrarProductosOrden(localStorage.getItem("Busqueda"), "menor"))
+    }
+
+    function nuevo() {
+        dispatch(filtrarProductosCondicion(localStorage.getItem("Busqueda"), "new"))
+    }
+
+    function usado() {
+        dispatch(filtrarProductosCondicion(localStorage.getItem("Busqueda"), "used"))
+    }
+
     return (
         <div className="productos">
             <div className="container-fluid">
                 <div className="row">
+                    <div className="col-12">
+                        <div className="col-12 filtros-title">
+                            Filtros
+                        </div>
+                        <div className="col-12 filtros">
+                            <button onClick={caroABarato}>Ordenar de mas caro a mas barato</button>
+                            <button onClick={baratoACaro}>Ordenar de mas barato a mas caro</button>
+                            <button onClick={nuevo}>Nuevo</button>
+                            <button onClick={usado}>Usado</button>
+                        </div>
+                    </div>
                     {catalogo.map((producto) => {
                         return (
                             <Link to={`/producto/${producto.id}`} className="col-3">

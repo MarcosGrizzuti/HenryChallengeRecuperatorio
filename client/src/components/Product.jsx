@@ -11,7 +11,7 @@ export const Product = () => {
     var producto;
     catalogo.map((product) => {
         if(product.id === id) {
-            producto = product
+            return producto = product
         }
     })
 
