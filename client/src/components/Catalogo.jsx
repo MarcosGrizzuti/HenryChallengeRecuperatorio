@@ -161,7 +161,7 @@ export const Catalogo = () => {
                 </div>
             </div>
         );
-    } else if(catalogo.length === 20) {
+    } else {
         return (
             <div className="productos">
                 <div className="container-fluid">
@@ -218,30 +218,6 @@ export const Catalogo = () => {
                                 </Link>
                             )
                         })}
-                    </div>
-                </div>
-            </div>
-        );
-    } else {
-        return (
-            <div className="productos">
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="col-12 filtros-title">
-                                Filtros
-                            </div>
-                            <div className="col-12 filtros">
-                                <button onClick={caroABarato}>Ordenar de mas caro a mas barato</button>
-                                <button onClick={baratoACaro}>Ordenar de mas barato a mas caro</button>
-                                <button onClick={nuevo}>Nuevo</button>
-                                <button onClick={usado}>Usado</button>
-                                <button onClick={filtrarPorCantidadTodos}>Mostrar todos</button>
-                            </div>
-                            <div className="col-12 usadosError">
-                                <h1>No se encontraron productos usados!</h1>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

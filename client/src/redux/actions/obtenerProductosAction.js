@@ -82,7 +82,7 @@ export const filtrarProductosPorCantidad = (query, condicion) => async (dispatch
 
     try {
         dispatch({
-            type: FILTRAR_PRODUCTOS_CONDICION,
+            type: FILTRAR_PRODUCTOS_POR_CANTIDAD,
             payload: productoFiltrado,
         });
     } catch(err) {
