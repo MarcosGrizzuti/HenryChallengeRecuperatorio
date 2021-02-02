@@ -1,4 +1,4 @@
-import { OBTENER_PRODUCTOS, FILTRAR_PRODUCTOS_CONDICION, FILTRAR_PRODUCTOS_ORDEN } from "../types"
+import { OBTENER_PRODUCTOS, FILTRAR_PRODUCTOS_CONDICION, FILTRAR_PRODUCTOS_ORDEN, FILTRAR_PRODUCTOS_POR_CANTIDAD } from "../types"
 import axios from "axios";
 
 export const obtenerProductos = (query) => async (dispatch) => {
@@ -58,6 +58,26 @@ export const filtrarProductosCondicion = (query, condicion) => async (dispatch) 
         var productoFiltrado = fetch.data.filter((product) => {
             return product.condition == "used";
         })
+    }
+
+    try {
+        dispatch({
+            type: FILTRAR_PRODUCTOS_CONDICION,
+            payload: productoFiltrado,
+        });
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+export const filtrarProductosPorCantidad = (query, condicion) => async (dispatch) => {
+    const fetch = await axios.get(`http://localhost:3001/api/search?query=${query}`);
+    if(condicion === "hasta30") {
+        var productoFiltrado = fetch.data.slice(0, 30)
+    } else if(condicion === "pagina2") {
+        var productoFiltrado = fetch.data.slice(30, )
+    } else {
+        var productoFiltrado = fetch.data
     }
 
     try {

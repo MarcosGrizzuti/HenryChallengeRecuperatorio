@@ -1,4 +1,4 @@
-import { OBTENER_PRODUCTOS, FILTRAR_PRODUCTOS_CONDICION, FILTRAR_PRODUCTOS_ORDEN } from "../types"
+import { OBTENER_PRODUCTOS, FILTRAR_PRODUCTOS_CONDICION, FILTRAR_PRODUCTOS_ORDEN, FILTRAR_PRODUCTOS_POR_CANTIDAD } from "../types"
 
 const initialState = {
   productos: [],
@@ -17,6 +17,11 @@ export function productosReducer(state = initialState, action) {
                 productos: action.payload,
             };
         case FILTRAR_PRODUCTOS_ORDEN:
+            return {
+                ...state,
+                productos: action.payload,
+            };
+        case FILTRAR_PRODUCTOS_POR_CANTIDAD:
             return {
                 ...state,
                 productos: action.payload,

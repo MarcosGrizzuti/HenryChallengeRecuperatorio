@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { obtenerProductos, filtrarProductosOrden, filtrarProductosCondicion} from "../redux/actions/obtenerProductosAction"
+import { obtenerProductos, filtrarProductosOrden, filtrarProductosCondicion, filtrarProductosPorCantidad } from "../redux/actions/obtenerProductosAction"
 import "./Catalogo.scss";
 
 export const Catalogo = () => {
@@ -30,60 +30,197 @@ export const Catalogo = () => {
         dispatch(filtrarProductosCondicion(localStorage.getItem("Busqueda"), "used"))
     }
 
-    return (
-        <div className="productos">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-12">
-                        <div className="col-12 filtros-title">
-                            Filtros
+    function filtrarPorCantidadHasta30() {
+        dispatch(filtrarProductosPorCantidad(localStorage.getItem("Busqueda"), "hasta30"))
+    }
+
+    function filtrarPorCantidadHasta50() {
+        dispatch(filtrarProductosPorCantidad(localStorage.getItem("Busqueda"), "pagina2"))
+    }
+
+    function filtrarPorCantidadTodos() {
+        dispatch(filtrarProductosPorCantidad(localStorage.getItem("Busqueda")))
+    }
+
+    if(catalogo.length === 50) {
+        return (
+            <div className="productos">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="col-12 filtros-title">
+                                Filtros
+                            </div>
+                            <div className="col-12 filtros">
+                                <button onClick={caroABarato}>Ordenar de mas caro a mas barato</button>
+                                <button onClick={baratoACaro}>Ordenar de mas barato a mas caro</button>
+                                <button onClick={nuevo}>Nuevo</button>
+                                <button onClick={usado}>Usado</button>
+                                <button onClick={filtrarPorCantidadHasta30}>Filtrar x 30</button>
+                            </div>
                         </div>
-                        <div className="col-12 filtros">
-                            <button onClick={caroABarato}>Ordenar de mas caro a mas barato</button>
-                            <button onClick={baratoACaro}>Ordenar de mas barato a mas caro</button>
-                            <button onClick={nuevo}>Nuevo</button>
-                            <button onClick={usado}>Usado</button>
-                        </div>
+                        {catalogo.map((producto) => {
+                            return (
+                                <Link to={`/producto/${producto.id}`} className="col-3">
+                                    <div className="clash-card barbarian sombra mb-5">
+                                        <div>
+                                            {/* IMAGEN */}
+                                            <div className="clash-card__image clash-card__image--barbarian">
+                                                <img alt="barbarian" src={producto.thumbnail}/>
+                                            </div>
+
+                                            {/* NOMBRE */}
+                                            <div className="clash-card__unit-name">{producto.title}</div>
+                                            <br/>
+
+                                            {/* CONDICION */}
+                                            <div className="clash-card">{producto.condition}</div>
+                                            <br/>
+                                            <br/>
+                                        </div>
+
+                                        <div className="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix ">
+                                            {/* PRECIO */}
+                                            <div className="one-third ">
+                                                <div className="stat-value"><h6>Precio</h6></div>
+                                                <div className="stat">{producto.currency_id} {producto.price}</div>
+                                            </div>
+
+                                            {/* CANTIDAD */}
+                                            <div className="one-third no-border">
+                                                <div className="stat-value"><h6>Stock</h6></div>
+                                                <div className="stat">{producto.available_quantity}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )
+                        })}
                     </div>
-                    {catalogo.map((producto) => {
-                        return (
-                            <Link to={`/producto/${producto.id}`} className="col-3">
-                                <div className="clash-card barbarian sombra mb-5">
-                                    <div>
-                                        {/* IMAGEN */}
-                                        <div className="clash-card__image clash-card__image--barbarian">
-                                            <img alt="barbarian" src={producto.thumbnail}/>
-                                        </div>
-
-                                        {/* NOMBRE */}
-                                        <div className="clash-card__unit-name">{producto.title}</div>
-                                        <br/>
-
-                                        {/* CONDICION */}
-                                        <div className="clash-card">{producto.condition}</div>
-                                        <br/>
-                                        <br/>
-                                    </div>
-
-                                    <div className="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix ">
-                                        {/* PRECIO */}
-                                        <div className="one-third ">
-                                            <div className="stat-value"><h6>Precio</h6></div>
-                                            <div className="stat">{producto.currency_id} {producto.price}</div>
-                                        </div>
-
-                                        {/* CANTIDAD */}
-                                        <div className="one-third no-border">
-                                            <div className="stat-value"><h6>Stock</h6></div>
-                                            <div className="stat">{producto.available_quantity}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                        )
-                    })}
                 </div>
             </div>
-        </div>
-    );
+        );
+    } else if(catalogo.length === 30) {
+        return (
+            <div className="productos">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="col-12 filtros-title">
+                                Filtros
+                            </div>
+                            <div className="col-12 filtros">
+                                <button onClick={caroABarato}>Ordenar de mas caro a mas barato</button>
+                                <button onClick={baratoACaro}>Ordenar de mas barato a mas caro</button>
+                                <button onClick={nuevo}>Nuevo</button>
+                                <button onClick={usado}>Usado</button>
+                                <button onClick={filtrarPorCantidadTodos}>Mostrar todos</button>
+                            </div>
+                            <div className="col-12 paginado">
+                                <button onClick={filtrarPorCantidadHasta50}>Pagina 2</button>
+                            </div>
+                        </div>
+                        {catalogo.map((producto) => {
+                            return (
+                                <Link to={`/producto/${producto.id}`} className="col-3">
+                                    <div className="clash-card barbarian sombra mb-5">
+                                        <div>
+                                            {/* IMAGEN */}
+                                            <div className="clash-card__image clash-card__image--barbarian">
+                                                <img alt="barbarian" src={producto.thumbnail}/>
+                                            </div>
+
+                                            {/* NOMBRE */}
+                                            <div className="clash-card__unit-name">{producto.title}</div>
+                                            <br/>
+
+                                            {/* CONDICION */}
+                                            <div className="clash-card">{producto.condition}</div>
+                                            <br/>
+                                            <br/>
+                                        </div>
+
+                                        <div className="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix ">
+                                            {/* PRECIO */}
+                                            <div className="one-third ">
+                                                <div className="stat-value"><h6>Precio</h6></div>
+                                                <div className="stat">{producto.currency_id} {producto.price}</div>
+                                            </div>
+
+                                            {/* CANTIDAD */}
+                                            <div className="one-third no-border">
+                                                <div className="stat-value"><h6>Stock</h6></div>
+                                                <div className="stat">{producto.available_quantity}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )
+                        })}
+                    </div>
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div className="productos">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="col-12 filtros-title">
+                                Filtros
+                            </div>
+                            <div className="col-12 filtros">
+                                <button onClick={caroABarato}>Ordenar de mas caro a mas barato</button>
+                                <button onClick={baratoACaro}>Ordenar de mas barato a mas caro</button>
+                                <button onClick={nuevo}>Nuevo</button>
+                                <button onClick={usado}>Usado</button>
+                                <button onClick={filtrarPorCantidadTodos}>Mostrar todos</button>
+                            </div>
+                            <div className="col-12">
+                                <button onClick={filtrarPorCantidadHasta30}>Pagina 1</button>
+                            </div>
+                        </div>
+                        {catalogo.map((producto) => {
+                            return (
+                                <Link to={`/producto/${producto.id}`} className="col-3">
+                                    <div className="clash-card barbarian sombra mb-5">
+                                        <div>
+                                            {/* IMAGEN */}
+                                            <div className="clash-card__image clash-card__image--barbarian">
+                                                <img alt="barbarian" src={producto.thumbnail}/>
+                                            </div>
+
+                                            {/* NOMBRE */}
+                                            <div className="clash-card__unit-name">{producto.title}</div>
+                                            <br/>
+
+                                            {/* CONDICION */}
+                                            <div className="clash-card">{producto.condition}</div>
+                                            <br/>
+                                            <br/>
+                                        </div>
+
+                                        <div className="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix ">
+                                            {/* PRECIO */}
+                                            <div className="one-third ">
+                                                <div className="stat-value"><h6>Precio</h6></div>
+                                                <div className="stat">{producto.currency_id} {producto.price}</div>
+                                            </div>
+
+                                            {/* CANTIDAD */}
+                                            <div className="one-third no-border">
+                                                <div className="stat-value"><h6>Stock</h6></div>
+                                                <div className="stat">{producto.available_quantity}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )
+                        })}
+                    </div>
+                </div>
+            </div>
+        );
+    }
 };
